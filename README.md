@@ -1,2 +1,2 @@
 # ppeng_cuda
-learn cuda c programming
+> learn cuda c programming

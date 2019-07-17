@@ -4,3 +4,4 @@
 *.ptx
 *.cubin
 *.fatbin
+build/ # ignore the files of build
