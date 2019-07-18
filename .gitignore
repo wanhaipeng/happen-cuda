@@ -4,4 +4,8 @@
 *.ptx
 *.cubin
 *.fatbin
-build/ # ignore the files of build
+
+# ignore the files of build
+build/
+# ignore the files of vscode
+.vscode/
