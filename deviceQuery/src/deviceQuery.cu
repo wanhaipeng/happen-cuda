@@ -15,10 +15,10 @@
 
 #include <cuda_runtime.h>
 #include <helper_cuda.h>
-
 #include <iostream>
 #include <memory>
 #include <string>
+#include "spdlog/spdlog.h"
 
 int *pArgc = NULL;
 char **pArgv = NULL;
@@ -72,9 +72,8 @@ int main(int argc, char **argv) {
     printf("There are no available device(s) that support CUDA\n");
   } else {
     printf("Detected %d CUDA Capable device(s)\n", deviceCount);
-    // just show the first CUDA Capable device
-    deviceCount = 1;
   }
+  spdlog::info("Support for floats {:.2f}", 1.23456);
 
   int dev, driverVersion = 0, runtimeVersion = 0;
 

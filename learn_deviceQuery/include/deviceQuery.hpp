@@ -32,5 +32,9 @@ inline void getCudaAttribute(T *attribute, CUdevice_attribute device_attribute,
 /**
  * @brief this function return the CUDA Capable device number
  */
-extern "C"
 int get_deviceNum();
+
+/**
+ * @brief this fcuntion get the query info of CUDA Capablde device
+ */
+void get_deviceInfo(int dev);
