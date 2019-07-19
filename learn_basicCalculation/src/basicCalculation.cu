@@ -11,8 +11,10 @@ void sumArraysCPU(float * a,float * b,float * res,const int size) {
 
 __global__ void sumArrayGPU(float* a,float* b,float* res)
 {
-  printf("block_idx: %d thread_idx: %d\n", blockIdx.x, threadIdx.x);
-  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  // printf("blockIdx: (%d, %d) threadIdx: (%d, %d)\n",
+  //   blockIdx.x, blockIdx.y, threadIdx.x, threadIdx.y);
+  int i = blockIdx.x * blockDim.x * 
+    blockDim.y + threadIdx.x * blockDim.y + threadIdx.y;
   res[i] = a[i] + b[i];
 }
 
@@ -26,10 +28,13 @@ void sumArraysGPU(float* a,float* b,float* res,const int size) {
   int byte_size = sizeof(float) * size;
   cudaError_t status = cudaMalloc(reinterpret_cast<float**>(&array1_dev), byte_size);
   spdlog::info("array1 malloc: {}", cudaGetErrorString(status));
+  CHECK_CUDA(status);
   status = cudaMalloc(reinterpret_cast<float**>(&array2_dev), byte_size);
   spdlog::info("array2 malloc: {}", cudaGetErrorString(status));
+  CHECK_CUDA(status);
   status = cudaMalloc(reinterpret_cast<float**>(&result_dev), byte_size);
   spdlog::info("result malloc: {}", cudaGetErrorString(status));
+  CHECK_CUDA(status);
 
   // move data host2device
   status = cudaMemcpy(array1_dev, a, byte_size, cudaMemcpyHostToDevice);
@@ -38,8 +43,8 @@ void sumArraysGPU(float* a,float* b,float* res,const int size) {
   spdlog::info("array2 s2d: {}", cudaGetErrorString(status));
 
   // create kernel function
-  dim3 block(256);
-  dim3 grid(size / block.x);
+  dim3 block(4, 4);
+  dim3 grid(size / (block.x * block.y));
   sumArrayGPU<<<grid, block>>>(array1_dev, array2_dev, result_dev);
 
   // move data decvice2host

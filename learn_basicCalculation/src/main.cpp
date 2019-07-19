@@ -16,8 +16,8 @@ int main(int argc, char* argv[]) {
   cpu_result = reinterpret_cast<float*>(malloc(elementBytes));
   gpu_result = reinterpret_cast<float*>(malloc(elementBytes));
   for (int i = 0; i < elementNUM; i++) {
-    array1[i] = i;
-    array2[i] = i;
+    array1[i] = i + 0.1;
+    array2[i] = i + 0.1;
   }
   // calculate with cpu
   sumArraysCPU(array1, array2, cpu_result, elementNUM);

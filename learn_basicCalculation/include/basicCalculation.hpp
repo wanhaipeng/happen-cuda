@@ -6,6 +6,7 @@
 #include <cuda_runtime.h>
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/fmt.h"
+#include "cuda_common.hpp"
 
 /**
  * @brief this function calculate the sum of two arrays with cpu
