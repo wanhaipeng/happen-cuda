@@ -22,10 +22,14 @@ int main(int argc, char* argv[]) {
   // calculate with cpu
   sumArraysCPU(array1, array2, cpu_result, elementNUM);
   spdlog::info("[{}]", fmt::join(std::vector<float>(cpu_result, cpu_result + elementNUM), ","));
-  
+
   // calculate with gpu
   sumArraysGPU(array1, array2, gpu_result, elementNUM);
   spdlog::info("[{}]", fmt::join(std::vector<float>(gpu_result, gpu_result + elementNUM), ","));
+
+  // check result
+  CHECK_RESULT(cpu_result, gpu_result, elementNUM);
+
   // free mem
   free(array1);
   free(array2);

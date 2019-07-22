@@ -41,3 +41,8 @@ add_subdirectory(learn_deviceQuery)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/learn_basicCalculation)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR/lib/learn_basicCalculation})
 add_subdirectory(learn_basicCalculation)
+
+# add learn_matrixCalculation
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/learn_matrixCalculation)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR/lib/learn_matrixCalculation})
+add_subdirectory(learn_matrixCalculation)
