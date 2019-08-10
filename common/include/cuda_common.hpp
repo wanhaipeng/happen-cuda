@@ -1,8 +1,10 @@
 #pragma once
+#include <sys/time.h>
 #include <cuda_runtime.h>
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/fmt.h"
-#define EPS 1e-5
+#define SEPS 1e-5
+#define LEPS 1e-1
 
 #define CHECK_CUDA(call)\
 {\
@@ -19,11 +21,22 @@
 {\
   for (int i = 0; i < n; i++)\
   {\
-    if (std::fabs(a[i]-b[i]) > EPS)\
+    if (abs(a[i]) < 1.0 && std::fabs(a[i]-b[i]) > SEPS)\
     {\
-      spdlog::error("cmp error at {}: cpu({}) vs gpu({})", i, a[i], b[i]);\
+      spdlog::error("cmp error at {}: cpu({}) vs gpu({}) ---> {}", i, a[i], b[i], std::fabs(a[i] - b[i]));\
+      exit(1);\
+    }\
+    if (abs(a[i]) > 1.0 && std::fabs(a[i]-b[i]) > LEPS)\
+    {\
+      spdlog::error("cmp error at {}: cpu({}) vs gpu({}) ---> {}", i, a[i], b[i], std::fabs(a[i] - b[i]));\
       exit(1);\
     }\
   }\
   spdlog::info("cmp success!");\
+}
+
+inline double calcuTime() {
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  return((double)tp.tv_sec * 1e3+(double)tp.tv_usec * 1e-3);
 }
