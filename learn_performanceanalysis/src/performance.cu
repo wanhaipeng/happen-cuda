@@ -1,4 +1,4 @@
-#include "matrixCalculation.hpp"
+#include "performance.hpp"
 
 float getIndexValue(Matrix& a, Matrix&b, int row, int col) {
   int ah_stride = a.col, bh_stride = b.col;
@@ -42,7 +42,7 @@ __global__ void matrixKernel(Matrix* a, Matrix* b, Matrix* res) {
   }
 }
 
-void productMatrixGPU(Matrix& a, Matrix& b, Matrix& res) {
+void productMatrixGPU(Matrix& a, Matrix& b, Matrix& res, cudautils::matrixutils& param) {
   // init arrays device mem
   int dev_id = 0;
   cudaSetDevice(dev_id);
@@ -65,7 +65,7 @@ void productMatrixGPU(Matrix& a, Matrix& b, Matrix& res) {
   Res_dev->col = res.col;
   Res_dev->row = res.row;
   // create kernel function
-  int blockx = 16, blocky = 16;
+  int blockx = param.blockx(), blocky = param.blocky();
   dim3 blockSize(blockx, blocky);
   dim3 gridSize((res.col + blockSize.x - 1) / blockSize.x, (res.row + blockSize.y - 1) / blockSize.y);
   spdlog::info("blockSize: ({},{})", blockx, blocky);

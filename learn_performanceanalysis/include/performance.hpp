@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -7,6 +8,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/fmt.h"
 #include "cuda_common.hpp"
+#include "cuda_utils.pb.h"
 
 /**
  * @brief 2-dims matrix struct
@@ -46,8 +48,10 @@ void productMatrixCPU(Matrix& a, Matrix& b, Matrix& res);
  *    the second input matrix
  * @param res
  *    the calculation result matrix
+ * @param param
+ *    the block shape param
  */
-void productMatrixGPU(Matrix& a, Matrix& b, Matrix& res);
+void productMatrixGPU(Matrix& a, Matrix& b, Matrix& res, cudautils::matrixutils& param);
 
 /**
  * @brief this function calculate the value of output matrix(row, col)

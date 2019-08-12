@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package cudautils;
+
+message matrixutils {
+    required int32 arrayleftrow = 1;
+    required int32 arraycommom = 2;
+    required int32 arrayrightcol = 3;
+    optional int32 blockx = 4 [default = 16];
+    optional int32 blocky = 5 [default = 16];
+}

@@ -25,8 +25,29 @@ message(STATUS "CUDA_HEADER: ${CUDA_INCLUDE_DIRS}")
 message(STATUS "CUDA_COMMON_HEADER: ${CUDA_COMMON_INCLUDE_DIR}")
 message(STATUS "CUDA_LIB: ${CUDA_LIBRARIES}")
 
+# set PKG_CONFIG_PATH for pkg-config find
+find_package(PkgConfig)
+
+# find protobuf3.x
+pkg_search_module(PROTOBUF REQUIRED protobuf)
+message(STATUS "Protobuf_HEADER: ${PROTOBUF_INCLUDE_DIRS}")
+message(STATUS "Protobuf_LIB: ${PROTOBUF_LIBRARIES}")
+link_directories("/usr/local/protobuf3.7/lib") # find version 3 lib first
+
+# find opencv4.x
+set(OpenCV_DIR /usr/local/opencv3.4/share/OpenCV)
+find_package(OpenCV 3 REQUIRED)
+# pkg_search_module(OpenCV REQUIRED opencv)
+message(STATUS "OpenCV_HEADER: ${OpenCV_INCLUDE_DIRS}")
+message(STATUS "OpenCV_LIB: ${OpenCV_LIBRARIES}")
+
 # add common header
-set(COMMON_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/common/include)
+set(COMMON_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/common/include
+                       ${CMAKE_SOURCE_DIR}/common/proto)
+# aux_source_directory(${CMAKE_SOURCE_DIR}/common/src COMMON_SRC)
+# aux_source_directory(${CMAKE_SOURCE_DIR}/common/proto PROTO_SRCS)
+file(GLOB_RECURSE COMMON_SRCS ${CMAKE_SOURCE_DIR}/common/*.c*)
+message(STATUS "common srcs: ${COMMON_SRCS}")
 
 # add deviceQuery
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/deviceQuery)
