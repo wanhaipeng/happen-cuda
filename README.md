@@ -1,2 +1,2 @@
-# ppeng_cuda
-> learn cuda c programming
+# happen-cuda
+> cuda c programming && tensorRT programming
