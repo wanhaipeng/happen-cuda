@@ -9,3 +9,5 @@
 build/
 # ignore the files of vscode
 .vscode/
+common/proto/*.cc
+common/proto/*.h

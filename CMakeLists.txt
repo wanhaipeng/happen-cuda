@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ppeng_cuda)
+project(happen_cuda)
 
 # Assign env variables
 set(CMAKE_CXX_STANDARD 11)
@@ -47,28 +47,24 @@ set(COMMON_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/common/include
 # aux_source_directory(${CMAKE_SOURCE_DIR}/common/src COMMON_SRC)
 # aux_source_directory(${CMAKE_SOURCE_DIR}/common/proto PROTO_SRCS)
 file(GLOB_RECURSE COMMON_SRCS ${CMAKE_SOURCE_DIR}/common/*.c*)
-message(STATUS "common srcs: ${COMMON_SRCS}")
+message(STATUS "COMMON SRCS: ${COMMON_SRCS}")
+
+# cmake subdir macro
+macro(SUBDIRLIST output input)
+  file(GLOB children RELATIVE ${input} ${input}/*)
+  set(DIRLIST "")
+  foreach(child ${children})
+    if(IS_DIRECTORY ${input}/${child})
+      list(APPEND DIRLIST ${child})
+    endif()
+  endforeach()
+  set(${output} ${DIRLIST})
+endmacro()
 
 # add deviceQuery
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/deviceQuery)
-add_subdirectory(deviceQuery)
+# add_subdirectory(deviceQuery)
 
-# add learn_deviceQuery
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/learn_deviceQuery)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/learn_deviceQuery)
-add_subdirectory(learn_deviceQuery)
+# add learn_cuda
+add_subdirectory(learn_cuda)
 
-# add learn_basicCalculation
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/learn_basicCalculation)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/learn_basicCalculation)
-add_subdirectory(learn_basicCalculation)
-
-# add learn_matrixCalculation
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/learn_matrixCalculation)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/learn_matrixCalculation)
-add_subdirectory(learn_matrixCalculation)
-
-# add learn_performanceanalysis
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/learn_performanceanalysis)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/learn_performanceanalysis)
-add_subdirectory(learn_performanceanalysis)
+# add learn_trt

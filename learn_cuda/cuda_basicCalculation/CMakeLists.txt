@@ -1,5 +1,5 @@
 # add cuda header and lib
-set(LEARN_DEVICEQUERY_INCLUDE_DIR include)
+set(LEARN_DEVICEQUERY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CUDA_INLUDE_DIRS}
                     ${CUDA_COMMON_INCLUDE_DIR}
                     ${COMMON_INCLUDE_DIR}

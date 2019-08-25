@@ -1,0 +1,11 @@
+# set LIB and BIN path
+set(CUDA_LIBRARY_OUTPUT_PATH ${LIBRARY_OUTPUT_PATH}/learn_cuda)
+set(CUDA_EXECUTABLE_OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH}/learn_cuda)
+
+SUBDIRLIST(CUDA_SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+foreach(subdir ${CUDA_SUBDIRS})
+  message(STATUS "CUDA_SUBDIR: ${subdir}")
+  set(LIBRARY_OUTPUT_PATH ${CUDA_LIBRARY_OUTPUT_PATH}/${subdir})
+  set(EXECUTABLE_OUTPUT_PATH ${CUDA_EXECUTABLE_OUTPUT_PATH}/${subdir})
+  add_subdirectory(${subdir})
+endforeach(subdir ${CUDA_SUBDIRS})
