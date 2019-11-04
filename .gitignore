@@ -11,3 +11,6 @@ build/
 .vscode/
 common/proto/*.cc
 common/proto/*.h
+# ignore model and install
+model/
+install/

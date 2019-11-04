@@ -1,6 +1,6 @@
 # add cuda header and lib
 set(LEARN_DEVICEQUERY_INCLUDE_DIR include)
-include_directories(${CUDA_INLUDE_DIRS}
+include_directories(${CUDA_INCLUDE_DIRS}
                     ${CUDA_COMMON_INCLUDE_DIR}
                     ${COMMON_INCLUDE_DIR}
                     ${LEARN_DEVICEQUERY_INCLUDE_DIR})

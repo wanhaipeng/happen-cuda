@@ -1,6 +1,6 @@
 # add cuda header and lib
 set(LEARN_PERFORMANCEANALYSIS_INCLUDE_DIR include)
-include_directories(${CUDA_INLUDE_DIRS}
+include_directories(${CUDA_INCLUDE_DIRS}
                     ${COMMON_INCLUDE_DIR}
                     ${LEARN_PERFORMANCEANALYSIS_INCLUDE_DIR}
                     ${PROTOBUF_INCLUDE_DIRS})
